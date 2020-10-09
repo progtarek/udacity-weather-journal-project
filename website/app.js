@@ -16,6 +16,10 @@ const fetchWeather = async (baseURL, zip, API_KEY) => {
   }
 };
 
-fetchWeather(baseURL, 94040, API_KEY).then((res) => {
+const onGenerateClickHandler = async () => {
+  const res = await fetchWeather(baseURL, 94040, API_KEY);
   console.log(res);
-});
+};
+
+const generateElement = document.getElementById('generate');
+generateElement.addEventListener('click', onGenerateClickHandler);
