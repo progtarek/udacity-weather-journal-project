@@ -9,10 +9,6 @@ const cors = require('cors');
 // Start up an instance of app
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.status(200).json(projectData);
-});
-
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,6 +16,20 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 app.use(cors());
+
+// Routes
+app.get('/', (req, res, next) => {
+  res.status(200).json(projectData);
+});
+
+app.post('/', (req, res, next) => {
+  const { temperature, date, userResponse } = req.body;
+  if (!temperature || !date || !userResponse) {
+    res.status(422).send('missing payload');
+  }
+  projectData = { temperature, date, userResponse };
+  res.status(200).json(projectData);
+});
 
 // Initialize the main project folder
 app.use(express.static('website'));
