@@ -9,6 +9,10 @@ const cors = require('cors');
 // Start up an instance of app
 const app = express();
 
+app.get('/', (req, res, next) => {
+  res.status(200).json(projectData);
+});
+
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
