@@ -17,12 +17,15 @@ app.use(bodyParser.json());
 // Cors for cross origin allowance
 app.use(cors());
 
+// Initialize the main project folder
+app.use(express.static('website'));
+
 // Routes
-app.get('/', (req, res, next) => {
+app.get('/weather', (req, res, next) => {
   res.status(200).json(projectData);
 });
 
-app.post('/', (req, res, next) => {
+app.post('/weather', (req, res, next) => {
   const { temperature, date, userResponse } = req.body;
   if (!temperature || !date || !userResponse) {
     res.status(422).send('missing payload');
@@ -30,9 +33,6 @@ app.post('/', (req, res, next) => {
   projectData = { temperature, date, userResponse };
   res.status(200).json(projectData);
 });
-
-// Initialize the main project folder
-app.use(express.static('website'));
 
 // Setup Server
 app.listen(3000, () => {
